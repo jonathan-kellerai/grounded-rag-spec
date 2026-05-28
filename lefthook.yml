@@ -1,0 +1,14 @@
+# lefthook — local git hooks for grounded-rag-spec.
+# Install once after cloning:  lefthook install
+pre-commit:
+  parallel: true
+  commands:
+    structure:
+      run: bash scripts/check-structure.sh
+    sanitization:
+      run: bash scripts/check-sanitization.sh
+
+commit-msg:
+  commands:
+    commitlint:
+      run: npx --yes --package @commitlint/cli --package @commitlint/config-conventional commitlint --edit {1}

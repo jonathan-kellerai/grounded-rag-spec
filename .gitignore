@@ -1,0 +1,31 @@
+# macOS
+.DS_Store
+
+# Internal agent tooling / session state
+.claude/
+.claude-tmp/
+
+# Lint / build caches
+.ruff_cache/
+
+# Jekyll build output (the GitHub Pages site is built in CI)
+_site/
+
+# Staging-only orchestration files (not part of the public repo)
+STAGING-NOTES.md
+KICKOFF-PROMPT.md
+FRESH-SESSION-PROMPT.md
+NEXT-SESSION-PROMPT.md
+MANIFEST.md
+
+# Review / critique artifacts generated during finalization
+*-review*.md
+5pass*
+artifacts/
+
+# Generated deliverables (whitepaper PDF is a user deliverable, not repo content)
+*.pdf
+
+# Defensive (doc-only repo doesn't currently build, but reserved for future tooling)
+node_modules/
+dist/

@@ -1,0 +1,50 @@
+name: Specification amendment proposal
+description: Propose a new architecture decision record (ADR) or an amendment to the specification.
+title: "[amendment]: "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this form to propose a substantive change to the design — a new ADR,
+        an amendment to an existing one, or a change to a v1 commitment. Decided
+        ADRs are never rewritten in place; see docs/agents/conventions.md.
+  - type: textarea
+    id: proposal
+    attributes:
+      label: What do you propose?
+      description: Describe the new decision or the amendment.
+    validations:
+      required: true
+  - type: textarea
+    id: rationale
+    attributes:
+      label: Rationale
+      description: Why is this change needed? What problem does it solve?
+    validations:
+      required: true
+  - type: textarea
+    id: affected
+    attributes:
+      label: Affected documents / ADRs
+      description: Which files or ADRs change? Does the proposal supersede an existing ADR?
+    validations:
+      required: true
+  - type: dropdown
+    id: semver
+    attributes:
+      label: Semver impact
+      description: How large is this change to the v1 specification?
+      options:
+        - "major — breaks a v1 architectural commitment"
+        - "minor — a new ADR, section, or additive change"
+        - "patch — a correction or clarification"
+    validations:
+      required: true
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Before submitting
+      options:
+        - label: I searched existing issues and this is not a duplicate.
+          required: true

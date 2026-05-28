@@ -1,0 +1,40 @@
+name: Specification bug
+description: Report something in the specification that is wrong or self-contradictory.
+title: "[bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this form when part of the specification is incorrect, internally
+        contradictory, or contradicts another document in the repository. If a
+        passage is merely unclear, use the clarification form instead.
+  - type: textarea
+    id: location
+    attributes:
+      label: Where is the problem?
+      description: File path(s) with section or line numbers, e.g. `docs/ADR.md:298`.
+      placeholder: docs/whitepapers/grounded-rag-v1-technical.md:NNN
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: What is wrong?
+      description: Describe the error or the contradiction.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What should it say instead?
+      description: Optional — your suggested correction.
+    validations:
+      required: false
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Before submitting
+      options:
+        - label: I searched existing issues and this is not a duplicate.
+          required: true

@@ -1,0 +1,11 @@
+# Dependabot — keeps GitHub Actions versions current.
+# This repository has no runtime or code dependencies; only the
+# github-actions ecosystem is tracked.
+version: 2
+updates:
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    commit-message:
+      prefix: "chore"

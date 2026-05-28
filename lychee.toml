@@ -1,0 +1,11 @@
+# lychee link-checker configuration.
+#
+# Internal and file links are always checked strictly: a missing file is an
+# error regardless of the settings below. The accepted status codes only
+# tolerate the anti-bot (403) and async (2xx) responses that academic
+# publishers commonly return for automated checkers — the cited DOIs and
+# papers are valid even when a publisher blocks the checker.
+accept = ["200..=299", "403", "429"]
+max_retries = 3
+retry_wait_time = 3
+no_progress = true

@@ -1,0 +1,31 @@
+name: Specification clarification
+description: Ask about a part of the specification that is ambiguous or unclear.
+title: "[clarification]: "
+labels: ["documentation"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this form when an element of the specification is ambiguous — it
+        could reasonably be read more than one way — rather than outright wrong.
+  - type: textarea
+    id: location
+    attributes:
+      label: Which part of the specification?
+      description: File path(s) with section or line numbers.
+    validations:
+      required: true
+  - type: textarea
+    id: question
+    attributes:
+      label: What is unclear?
+      description: Describe the ambiguity and the different readings it allows.
+    validations:
+      required: true
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Before submitting
+      options:
+        - label: I searched existing issues and this is not a duplicate.
+          required: true

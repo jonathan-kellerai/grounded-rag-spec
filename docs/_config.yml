@@ -1,0 +1,5 @@
+title: "Grounded RAG — v1 Architecture Specification"
+description: >-
+  The v1 architecture specification for Grounded RAG, an evidence-grounded
+  retrieval-and-answer system.
+theme: jekyll-theme-primer

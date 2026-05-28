@@ -1,0 +1,22 @@
+# CODEOWNERS — sensitive-path review locks for matryoshka-spec
+#
+# Only sensitive paths are listed here. Any path NOT matched below has no
+# enforced owner and follows the normal contribution flow described in
+# CONTRIBUTING.md. The .github/CODEOWNERS file itself is covered by the
+# /.github/ rule.
+
+# Repository governance and CI
+/.github/                                      @jonathan-kellerai
+
+# Licensing
+/LICENSE                                       @jonathan-kellerai
+/NOTICE                                        @jonathan-kellerai
+
+# Agent-governance entry points
+/AGENTS.md                                     @jonathan-kellerai
+/CLAUDE.md                                     @jonathan-kellerai
+
+# Foundational specification artifacts
+/docs/constitution.md                          @jonathan-kellerai
+/docs/ADR.md                                   @jonathan-kellerai
+/docs/whitepapers/matryoshka-v1-technical.md    @jonathan-kellerai

@@ -1,0 +1,19 @@
+# markdownlint-cli2 — lenient configuration tuned so the existing
+# (5-pass-reviewed) specification documents pass without reformatting.
+config:
+  MD013: false   # line length: specs contain wide tables and long prose
+  MD022: false   # blanks around headings: frozen prose layout is preserved
+  MD024:
+    siblings_only: true   # repeated subsection headings recur across ADRs
+  MD026: false   # trailing punctuation in a heading
+  MD028: false   # blank line inside a blockquote
+  MD031: false   # blanks around fenced code blocks
+  MD032: false   # blanks around lists
+  MD033: false   # inline HTML is permitted
+  MD034: false   # bare URLs appear in the frozen reference text
+  MD036: false   # emphasis used as a pseudo-heading in frozen prose
+  MD040: false   # fenced code blocks need not declare a language
+  MD041: false   # a file's first line need not be a top-level heading
+  MD059: false   # non-descriptive link text in frozen reference lists
+  MD060: false   # table column / pipe-spacing style
+gitignore: true

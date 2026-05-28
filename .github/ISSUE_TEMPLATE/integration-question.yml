@@ -1,0 +1,32 @@
+name: Integration question
+description: Ask how to adopt, implement, or wire in the Grounded RAG specification.
+title: "[integration]: "
+labels: ["question"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this form for questions about applying the specification — how to
+        implement a component, how the pieces fit together, or how Grounded RAG
+        relates to a system you are building. This repository is the design
+        specification; it has no runtime.
+  - type: textarea
+    id: question
+    attributes:
+      label: Your question
+    validations:
+      required: true
+  - type: textarea
+    id: context
+    attributes:
+      label: Context
+      description: What are you building, and which part of the spec does it touch?
+    validations:
+      required: false
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Before submitting
+      options:
+        - label: I searched existing issues and this is not a duplicate.
+          required: true
