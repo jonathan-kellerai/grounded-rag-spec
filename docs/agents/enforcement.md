@@ -13,6 +13,9 @@ actionable. Tier-2 detail for AGENTS.md.
 | Markdown lint | `markdownlint-cli2` — CI | Markdown stays well-formed under the lenient `.markdownlint-cli2.yaml`. |
 | Link check | `lychee` — CI | Internal and external links resolve. |
 | Commit lint | `commitlint` — CI on `pull_request`, plus the `commit-msg` hook | Every commit message is a valid Conventional Commit; the build fails on a violation. |
+| Branch tier | `.github/workflows/validate-branch-tier.yml` — CI on `pull_request` | The four-tier merge model holds: `main ← qa/**`, `qa ← dev/**`, `dev ← external/**` or a CODEOWNER branch. |
+| Branch name (external) | `.github/workflows/validate-branch-name.yml` — CI on `pull_request` | `external/**` branch names match `external/<type>-<ISSUE-KEY>-<scope>-p<N>`; maintainer and agent branches are exempt. |
+| Linked issue | `.github/workflows/validate-linked-issue.yml` — CI on `pull_request` | An `external/**` PR references an issue that is open and carries the `codeowner-approved` label. |
 
 The pre-commit and `commit-msg` hooks are managed by `lefthook.yml`; a
 contributor installs them once with `lefthook install`.

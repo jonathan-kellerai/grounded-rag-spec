@@ -41,13 +41,50 @@ feat(adr): record ADR-012 for synthesis-model resolution
 chore: add markdown-lint workflow
 ```
 
-## Branch naming
+## Branch naming and the four-tier merge model
 
-Agent work goes on `<agent>/<scope>` branches:
+CI enforces a four-tier merge model
+(`.github/workflows/validate-branch-tier.yml`), checked on every pull request:
+
+| Target branch | Accepts merges from | Enforced by |
+|---------------|---------------------|-------------|
+| `main` | `qa/**` only | `validate-branch-tier.yml` |
+| `qa` | `dev/**` only | `validate-branch-tier.yml` |
+| `dev` | `external/**`, or any branch owned by a CODEOWNER | `validate-branch-tier.yml` |
+
+### Maintainer and agent branches
+
+Agent and maintainer work goes on `<agent>/<scope>` branches:
 
 - `claude/fix-typo-adr-007`
 - `codex/clarify-bel-pl-interval`
 - `human/<scope>` for human contributors.
+
+Because the author is a CODEOWNER (see `.github/CODEOWNERS`), these branches may
+open a pull request directly into `dev` — the tier gate's CODEOWNER exception
+covers that case. To reach `qa` or `main`, promote the change through a `qa/**`
+branch (for example, branch `qa/<scope>` off `main`, then open the PR into
+`main`). The `<agent>/<scope>` naming itself is not pattern-checked by CI — only
+`external/**` branch names are.
+
+### Outside-contributor branches
+
+Contributors without CODEOWNER status use `external/**` branches, whose names
+are validated by `validate-branch-name.yml`:
+
+```text
+external/<type>-<ISSUE-KEY>-<scope>-<gerund>-p<N>
+```
+
+- `<type>`: `feat fix chore docs refactor test ci build perf revert style hotfix spike wip release rnd`
+- `<ISSUE-KEY>`: uppercase team prefix + digits, e.g. `ABC-123`
+- `<scope>` / `<gerund>`: one or more lowercase alphanumeric segments
+- `-p<N>`: priority, `p0` (critical) through `p4` (backlog)
+- Example: `external/feat-ABC-123-auth-adding-oauth-p1`
+
+An `external/**` pull request also requires, via `validate-linked-issue.yml`,
+that the linked issue is **open** and carries the **`codeowner-approved`** label
+— a CODEOWNER must approve the issue before the contributor PR is opened.
 
 Never commit directly to `main`. Never create a `master` branch — `main` is the
 only long-lived branch.
