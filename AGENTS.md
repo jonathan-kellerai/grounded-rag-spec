@@ -43,9 +43,17 @@ Other files:
 
 ## Conventions agents must follow
 
-- **Branch naming:** agent work goes on `<agent>/<scope>` branches — e.g.
-  `claude/fix-typo-adr-007`, `codex/clarify-bel-pl-interval`. Use `human/<scope>`
-  for human contributors. Never commit directly to `main`.
+- **Branch naming and merge tiers:** CI enforces a four-tier merge model —
+  `main ← qa/** ← dev/** ← external/**` (or a CODEOWNER-owned branch into
+  `dev`), checked on every pull request by
+  `.github/workflows/validate-branch-tier.yml`. Agent and maintainer work goes
+  on `<agent>/<scope>` branches — e.g. `claude/fix-typo-adr-007`,
+  `codex/clarify-bel-pl-interval`; use `human/<scope>` for human contributors.
+  Because the author is a CODEOWNER, these branches may open a PR directly into
+  `dev`; promote through a `qa/**` branch to reach `main`. Outside contributors
+  use `external/<type>-<ISSUE-KEY>-<scope>-p<N>` (validated by
+  `validate-branch-name.yml`). Never commit directly to `main`. Full model:
+  `docs/agents/conventions.md`.
 - **Commits:** Conventional Commits — `<type>(<scope>): <subject>`. Subject in
   imperative mood, ≤50 characters. Types: `feat`, `fix`, `chore`, `docs`,
   `refactor`. Scope is optional. See `docs/agents/conventions.md`.
