@@ -300,6 +300,36 @@ test_br009_clears_when_actions_done if {
 }
 
 # ---------------------------------------------------------------------------
+# BR-011 — editing affects.json itself fires the manifest-coverage rule.
+# ---------------------------------------------------------------------------
+
+test_br011_fires_on_affects_manifest_edit if {
+	# BR-011 is verifiable=true error — adding or renaming a manifest entry
+	# without a sibling test case in blast_radius_test.rego blocks the PR.
+	result := blast_radius.result with input as _input(
+		["conformance/affects.json"], {}, [],
+	)
+	"BR-011-affects-manifest" in _fired_ids(result)
+	result.verdict == "blocked"
+	result.errors == 1
+}
+
+test_br011_clears_when_all_actions_done if {
+	# Both required actions must be declared DONE for the verdict to clear.
+	result := blast_radius.result with input as _input(
+		["conformance/affects.json"],
+		{},
+		[
+			"BR-011-affects-manifest-1",
+			"BR-011-affects-manifest-2",
+		],
+	)
+	"BR-011-affects-manifest" in _fired_ids(result)
+	result.verdict == "clear"
+	result.errors == 0
+}
+
+# ---------------------------------------------------------------------------
 # Sub-target gate: a JSON edit with no json_changes entry must NOT fire the
 # subtarget-gated rules (BR-002, BR-003).
 # ---------------------------------------------------------------------------
