@@ -7,5 +7,14 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
+    # Redirect into the qa tier so PRs flow qa/** -> main per the branch-tier gate.
+    target-branch: "qa/dependabot-updates"
+    # Group all Actions bumps into one PR — grouped subject stays under the
+    # commitlint subject-max-length (50) limit.
+    groups:
+      github-actions:
+        patterns:
+          - "*"
     commit-message:
       prefix: "chore"
+    open-pull-requests-limit: 5

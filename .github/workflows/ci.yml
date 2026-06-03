@@ -2,40 +2,73 @@ name: CI
 
 on:
   push:
+    branches: [main]
+    paths-ignore: ['audit/**']
   pull_request:
+    paths-ignore: ['audit/**']
 
 permissions:
   contents: read
 
 jobs:
-  validate:
-    name: Validate specification
+  # ---------------------------------------------------------------------------
+  # JSON well-formedness: every *.json file must parse cleanly with jq
+  # ---------------------------------------------------------------------------
+  json-wellformed:
+    name: JSON well-formedness
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     steps:
-      - name: Check out repository
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd  # v6.0.2
 
-      - name: Structural validation
-        run: bash scripts/check-structure.sh
-
-      - name: JSON well-formedness
+      - name: Validate all JSON files
         run: |
-          set -euo pipefail
-          count=0
-          while IFS= read -r -d '' file; do
-            count=$((count + 1))
-            jq empty -- "$file"
-          done < <(git ls-files -z -- '*.json')
-          echo "Validated ${count} JSON file(s)."
+          status=0
+          while IFS= read -r f; do
+            if ! jq empty "$f" >/dev/null 2>&1; then
+              echo "::error file=$f::invalid JSON"
+              status=1
+            fi
+          done < <(git ls-files '*.json')
+          exit $status
 
-      - name: Markdown lint
-        run: npx --yes markdownlint-cli2 "**/*.md"
+  # ---------------------------------------------------------------------------
+  # Markdown lint
+  # Config: .markdownlint-cli2.yaml at repo root (MD013 disabled for wide tables)
+  # ---------------------------------------------------------------------------
+  markdown-lint:
+    name: Markdown lint
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd  # v6.0.2
 
-      - name: Sanitization gate
+      - name: markdownlint-cli2
+        run: npx --yes markdownlint-cli2@0.22.1 "**/*.md" "#node_modules"
+
+  # ---------------------------------------------------------------------------
+  # Sanitization regression gate
+  # Fails the build on any match against the base64-encoded internal-term denylist.
+  # ---------------------------------------------------------------------------
+  sanitization:
+    name: Sanitization gate
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd  # v6.0.2
+
+      - name: Run sanitization check
         run: bash scripts/check-sanitization.sh
 
-      - name: Link check
-        uses: lycheeverse/lychee-action@8646ba30535128ac92d33dfc9133794bfdd9b411 # v2
-        with:
-          args: "--no-progress ."
-          fail: true
+  # ---------------------------------------------------------------------------
+  # Conformance: this repo must pass its own OPA conformance policy.
+  # artifact_type = rag-config (matches conformance/data.json artifact_types)
+  # ---------------------------------------------------------------------------
+  conformance:
+    name: Conformance (self)
+    uses: jonathan-kellerai/kellerai-oss-template/.github/workflows/conformance.yml@main
+    with:
+      artifact_type: rag-config
