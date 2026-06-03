@@ -29,3 +29,6 @@ artifacts/
 # Defensive (doc-only repo doesn't currently build, but reserved for future tooling)
 node_modules/
 dist/
+
+# Session handoff / resume files (contain local paths — never publish)
+RESUME.md
