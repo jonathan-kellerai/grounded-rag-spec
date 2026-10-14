@@ -10,7 +10,7 @@ permissions:
 # Enforces the 4-tier merge model:
 #   main  <- qa/**  only
 #   qa    <- dev/** only
-#   dev   <- external/** (contributors) or a CODEOWNER branch
+#   dev   <- external/** (contributors), dependabot/** or a CODEOWNER branch
 # external/* naming is validated separately by validate-branch-name.yml.
 jobs:
   validate-branch-tier:
@@ -50,7 +50,8 @@ jobs:
           RULES = {
               "main": (r"^qa(/.*)?$",    "PRs into main must come from qa/**"),
               "qa":   (r"^dev(/.*)?$",   "PRs into qa must come from dev/**"),
-              "dev":  (r"^external/",    "PRs into dev must come from external/** or a CODEOWNER branch"),
+              "dev":  (r"^(external|dependabot)/",
+                       "PRs into dev must come from external/**, dependabot/** or a CODEOWNER branch"),
           }
 
           if base not in RULES:
