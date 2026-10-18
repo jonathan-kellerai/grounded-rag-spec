@@ -1,8 +1,8 @@
 cff-version: 1.2.0
 message: "If you reference this specification, please cite it as below."
-title: "Grounded RAG — v1 Architecture Specification"
+title: "Grounded RAG: v1 Architecture Specification"
 abstract: >-
-  The v1 architecture specification for Matryoshka, an evidence-grounded
+  The v1 architecture specification for Grounded RAG, an evidence-grounded
   retrieval-and-answer system that returns answers grounded in cited evidence
   or declines to answer. A design-phase document set: constitution, proposal,
   scope, architecture decision records, research synthesis, and whitepapers.
@@ -12,8 +12,8 @@ authors:
 version: "0.1.0"
 date-released: "2026-05-21"
 license: Apache-2.0
-repository-code: "https://github.com/jonathan-kellerai/matryoshka-spec"
-url: "https://github.com/jonathan-kellerai/matryoshka-spec"
+repository-code: "https://github.com/jonathan-kellerai/grounded-rag-spec"
+url: "https://github.com/jonathan-kellerai/grounded-rag-spec"
 keywords:
   - retrieval-augmented-generation
   - evidence-grounding
