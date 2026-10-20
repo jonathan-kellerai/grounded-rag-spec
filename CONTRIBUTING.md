@@ -21,8 +21,9 @@ collects the details a maintainer needs.
 
 ## Before you open a pull request
 
-1. **Branch from `main`.** Never commit to `main` directly, and never create a
-   `master` branch.
+1. **Branch from `dev`.** Open PRs into `dev`; work reaches `main` only via a
+   `qa/**` promotion (see AGENTS.md). Never commit to `main` directly, and
+   never create a `master` branch.
 2. **Name the branch** `<agent>/<scope>` for agent work (for example
    `claude/fix-adr-typo`) or `feat/*`, `fix/*`, `docs/*`, `chore/*` for human
    work. The full convention, including edge cases, is in
